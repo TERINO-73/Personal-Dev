@@ -1,0 +1,13 @@
+package com.jesusterino.app.dev_personal_app;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class DevPersonalAppApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
