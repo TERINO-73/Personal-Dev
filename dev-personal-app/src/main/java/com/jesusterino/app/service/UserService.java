@@ -17,16 +17,17 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    // CREATE
+    // CREATE (REGISTER)
     public User createUser(UserDTO userDTO) {
         if (userRepository.existsByUsername(userDTO.getUsername())) {
-            throw new RuntimeException("Username already exists");
+            throw new RuntimeException("El nombre de usuario ya existe");
         }
         if (userRepository.existsByEmail(userDTO.getEmail())) {
-            throw new RuntimeException("Email already exists");
+            throw new RuntimeException("El email ya existe");
         }
 
         User user = User.builder()
+                .name(userDTO.getName())
                 .username(userDTO.getUsername())
                 .email(userDTO.getEmail())
                 .password(passwordEncoder.encode(userDTO.getPassword()))
@@ -34,6 +35,18 @@ public class UserService {
                 .build();
 
         return userRepository.save(user);
+    }
+
+    // LOGIN
+    public User login(com.jesusterino.app.dto.LoginRequest loginRequest) {
+        User user = userRepository.findByUsernameOrEmail(loginRequest.getUsernameOrEmail(), loginRequest.getUsernameOrEmail())
+                .orElseThrow(() -> new RuntimeException("Usuario o contraseña incorrectos"));
+
+        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            throw new RuntimeException("Usuario o contraseña incorrectos");
+        }
+
+        return user;
     }
 
     // READ ALL

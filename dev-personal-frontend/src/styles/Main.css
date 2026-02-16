@@ -1,0 +1,196 @@
+/* =========================
+   RESET BÁSICO
+========================= */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Outfit', sans-serif;
+  background-color: #0f172a;
+  background-image:
+    radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+  color: #f8fafc;
+}
+
+/* =========================
+   HEADER
+========================= */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header .logo a {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f8fafc;
+  text-decoration: none;
+  text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+}
+
+.header .main-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.header .main-nav a {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.header .main-nav a:hover {
+  color: #c084fc;
+  text-shadow: 0 0 8px rgba(192, 132, 252, 0.6);
+}
+
+/* =========================
+   DROPDOWN
+========================= */
+.header .dropdown {
+  position: relative;
+}
+
+.header .dropbtn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #cbd5e1;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.header .dropbtn:hover {
+  color: #c084fc;
+}
+
+.header .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: rgba(30, 41, 59, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  list-style: none;
+  padding: 0.5rem 0;
+  min-width: 200px;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+
+.header .dropdown-menu li a,
+.header .dropdown-menu li button {
+  display: block;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #e2e8f0;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.header .dropdown-menu li a:hover,
+.header .dropdown-menu li button:hover {
+  background: rgba(99, 102, 241, 0.2);
+  color: #fff;
+}
+
+.header .dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* =========================
+   LAYOUT FULL SCREEN
+========================= */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* =========================
+   DASHBOARD HOME
+========================= */
+.home-container {
+  flex: 1;
+  /* Ocupa el espacio restante */
+  display: grid;
+  grid-template-columns: 1fr 1.15fr 1fr;
+  grid-template-rows: repeat(6, 1fr);
+  gap: 1rem;
+  padding: 0;
+  /* Sin padding para ocupar todo el ancho */
+  box-sizing: border-box;
+  background: transparent;
+  width: 100%;
+  /* Eliminamos height fijo para usar flex */
+}
+
+/* Bloques */
+.home-container nav {
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+  border-radius: 18px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-container nav:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+}
+
+/* Posicionamiento */
+.Recordatorios {
+  grid-column: 1;
+  grid-row: 1 / 3;
+}
+
+.Ejercicio {
+  grid-column: 1;
+  grid-row: 3 / 7;
+}
+
+.Habitos {
+  grid-column: 2;
+  grid-row: 1 / 7;
+  font-size: 1.4rem;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.Objetivos {
+  grid-column: 3;
+  grid-row: 1 / 4;
+}
+
+.Comidas {
+  grid-column: 3;
+  grid-row: 4 / 7;
+}
