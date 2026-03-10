@@ -3,7 +3,11 @@ import { useNavigate, Link } from 'react-router-dom';
 import AuthService from '../services/auth.service';
 import '../styles/Auth.css';
 
-const LoginPage = () => {
+interface Props {
+    onLogin: (user: any) => void;
+}
+
+const LoginPage = ({ onLogin }: Props) => {
     const [usernameOrEmail, setUsernameOrEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -12,7 +16,8 @@ const LoginPage = () => {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await AuthService.login(usernameOrEmail, password);
+            const userData = await AuthService.login(usernameOrEmail, password);
+            onLogin(userData);
             navigate('/personal'); // Redirigir al dashboard/personal tras login
         } catch (err) {
             setError('Credenciales inválidas. Por favor, intenta de nuevo.');
@@ -60,9 +65,9 @@ const LoginPage = () => {
                 </form>
 
                 <div className="auth-footer">
-                    ¿No tienes cuenta?
-                    <Link to="/register" className="auth-link">Regístrate aquí</Link>
+                    <p>¿No estás registrado? <Link to="/personal/register" className="auth-link">Regístrate aquí</Link></p>
                 </div>
+
             </div>
         </div>
     );

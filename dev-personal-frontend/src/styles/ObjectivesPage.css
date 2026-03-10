@@ -1,0 +1,286 @@
+body,
+html,
+#root {
+    display: block !important;
+    height: auto !important;
+    min-height: 100vh;
+    overflow-y: visible !important;
+}
+
+.objectives-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    color: white;
+    min-height: 100vh;
+    background: radial-gradient(circle at top left, rgba(143, 148, 251, 0.1), transparent),
+        radial-gradient(circle at bottom right, rgba(78, 84, 200, 0.1), transparent);
+}
+
+.objectives-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.objectives-header h1 {
+    font-size: 3rem;
+    background: linear-gradient(to right, #8f94fb, #4e54c8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.objectives-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Card Style - Much Bigger */
+.objective-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    padding: 2.5rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.objective-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(143, 148, 251, 0.3);
+}
+
+.objective-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: #8f94fb;
+}
+
+.objective-type-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    background: rgba(143, 148, 251, 0.2);
+    color: #8f94fb;
+}
+
+/* Progress Section */
+.reading-progress-container {
+    margin-top: 1.5rem;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.7;
+}
+
+.progress-bar-bg {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(to right, #8f94fb, #4e54c8);
+    transition: width 1s ease-out;
+}
+
+/* Subtasks Section */
+.subtasks-list {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.subtask-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.subtask-checkbox {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 2px solid #8f94fb;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+/* Subtask Status Colors */
+.subtask-checkbox.PENDING {
+    border-color: #ff9f43;
+}
+
+.subtask-checkbox.DOING {
+    border-color: #54a0ff;
+    background: rgba(84, 160, 255, 0.2);
+}
+
+.subtask-checkbox.DONE {
+    background: #1dd1a1;
+    border-color: #1dd1a1;
+}
+
+.subtask-title.DONE {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+/* Book Styles */
+.book-item {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s;
+}
+
+.book-item.completed {
+    border-color: #1dd1a1;
+    background: rgba(29, 209, 161, 0.05);
+    order: 2;
+    /* Move to bottom in a flex container */
+}
+
+.deadline-badge {
+    font-size: 0.85rem;
+    color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.15);
+    padding: 4px 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+    display: inline-block;
+    border: 1px solid rgba(255, 107, 107, 0.2);
+}
+
+/* Options Button Styling */
+.options-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.options-btn:hover {
+    background: rgba(255, 77, 77, 0.2);
+    border-color: #ff4d4d;
+    color: #ff4d4d;
+}
+
+/* Add Form */
+.add-objective-trigger {
+    background: rgba(143, 148, 251, 0.1);
+    border: 2px dashed rgba(143, 148, 251, 0.3);
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.add-objective-trigger:hover {
+    background: rgba(143, 148, 251, 0.2);
+    border-color: #8f94fb;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.objective-modal {
+    background: #1a1a2e;
+    width: 90%;
+    max-width: 500px;
+    padding: 2rem;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 50px rgba(143, 148, 251, 0.2);
+}
+
+.form-input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 12px;
+    color: white;
+    margin-bottom: 1.5rem;
+}
+
+select.form-input {
+    background-color: #1a1a2e;
+    /* Solid background is vital for Windows options bug */
+    color-scheme: dark;
+}
+
+select.form-input option {
+    background-color: #54a0ff;
+    /* Azul que pediste */
+    color: black;
+    /* Color negro */
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #8f94fb;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(to right, #8f94fb, #4e54c8);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-primary:active {
+    transform: scale(0.95);
+}

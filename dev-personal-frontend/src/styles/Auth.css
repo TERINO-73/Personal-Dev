@@ -11,8 +11,12 @@
     --input-border: rgba(148, 163, 184, 0.3);
 }
 
-body {
-    margin: 0;
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
     font-family: 'Outfit', sans-serif;
     background-color: var(--bg-color);
     background-image:
@@ -20,19 +24,6 @@ body {
         radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
         radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
     color: var(--text-color);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-.auth-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
 }
 
 .auth-card {

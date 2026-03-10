@@ -25,15 +25,16 @@ html,
 body,
 #root {
   width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
+  display: block !important;
+  height: auto !important;
+  min-height: 100vh;
+  overflow-y: visible !important;
 }
 
 body {
-  overflow-x: hidden;
-  display: block;
-  /* Asegurar block display */
+  display: block !important;
 }
 
 a {
@@ -80,4 +81,20 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* Fix select dropdown styles in Windows */
+select {
+  color-scheme: dark;
+  /* Force native dark menu in Windows Chromium */
+  background-color: #1a1a2e !important;
+  /* Critical: Windows drops option styles if select is translucent! */
+  color: white !important;
+}
+
+select.form-input option,
+select option {
+  background-color: #54a0ff !important;
+  color: #000000 !important;
+  font-weight: bold;
 }

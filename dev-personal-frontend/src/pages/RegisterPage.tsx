@@ -3,7 +3,11 @@ import { useNavigate, Link } from 'react-router-dom';
 import AuthService from '../services/auth.service';
 import '../styles/Auth.css';
 
-const RegisterPage = () => {
+interface Props {
+  onRegister: (user: any) => void;
+}
+
+const RegisterPage = ({ onRegister }: Props) => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -14,7 +18,10 @@ const RegisterPage = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await AuthService.register(name, username, email, password);
+      const userData = await AuthService.register(name, username, email, password);
+      // Si el registro te loguea automáticamente, activamos onRegister
+      // Si solo redirige a login, esto no hará nada malo
+      onRegister(userData);
       navigate('/personal/login');
     } catch (err: any) {
       setError(err.response?.data?.message || 'Error al registrarse. Intenta de nuevo.');

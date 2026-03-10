@@ -4,6 +4,10 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import UsersPage from "./pages/UsersPage";
 import MainPage from "./pages/MainPage";
+import HabitPage from "./pages/HabitPage";
+import StatsPage from "./pages/StatsPage";
+import RemindersPage from "./pages/RemindersPage";
+import ObjectivesPage from "./pages/ObjectivesPage";
 import AuthService from "./services/auth.service";
 
 function App() {
@@ -14,14 +18,15 @@ function App() {
     setUser(currentUser);
   }, []);
 
+  const logout = () => {
+    AuthService.logout();
+    setUser(null);
+  };
+
   const auth = {
     isAuthenticated: () => !!user,
     isAdmin: () => user?.role === 'ADMIN',
-    logout: () => {
-      AuthService.logout();
-      setUser(null);
-      window.location.href = '/personal/login';
-    }
+    logout: logout
   };
 
   const getBackground = (fondo: string) => {
@@ -40,8 +45,12 @@ function App() {
           />
         } />
         <Route path="/personal/users" element={<UsersPage />} />
-        <Route path="/personal/register" element={<RegisterPage />} />
-        <Route path="/personal/login" element={<LoginPage />} />
+        <Route path="/personal/register" element={<RegisterPage onRegister={(userData) => setUser(userData)} />} />
+        <Route path="/personal/login" element={<LoginPage onLogin={(userData) => setUser(userData)} />} />
+        <Route path="/personal/habits" element={<HabitPage />} />
+        <Route path="/personal/stats" element={<StatsPage />} />
+        <Route path="/personal/reminders" element={<RemindersPage />} />
+        <Route path="/personal/objectives" element={<ObjectivesPage />} />
       </Routes>
     </BrowserRouter>
   );

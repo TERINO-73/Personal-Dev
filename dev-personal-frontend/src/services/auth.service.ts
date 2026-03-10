@@ -16,7 +16,7 @@ const register = async (name: string, username: string, email: string, password:
     username,
     email,
     password,
-  });
+  }, { withCredentials: true });
   return response.data;
 };
 
@@ -24,7 +24,7 @@ const login = async (usernameOrEmail: string, password: string): Promise<User> =
   const response = await axios.post(API_URL + 'login', {
     usernameOrEmail,
     password,
-  });
+  }, { withCredentials: true });
   if (response.data) {
     localStorage.setItem('user', JSON.stringify(response.data));
   }
