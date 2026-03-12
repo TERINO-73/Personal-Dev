@@ -19,6 +19,9 @@ public class Reminder {
     @Column(nullable = false)
     private String text;
 
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
     private String color;
 
     private LocalDateTime startTime;

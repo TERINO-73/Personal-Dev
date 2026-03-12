@@ -21,6 +21,7 @@ public class DailyRecordService {
         private final DailyRecordRepository dailyRecordRepository;
         private final HabitRepository habitRepository;
         private final UserRepository userRepository;
+        private final NutritionService nutritionService;
 
         @Transactional(readOnly = true)
         public DailyRecordDTO getTodayRecord(String username) {
@@ -66,6 +67,19 @@ public class DailyRecordService {
                         record.setCompletedHabitIds(new java.util.HashSet<>(dto.getCompletedHabitIds()));
                 }
 
+                try {
+                        com.jesusterino.app.dto.NutritionDayResponseDTO nutrition = nutritionService.getDayInfo(username, today);
+                        if (nutrition != null) {
+                                record.setTotalCalories(nutrition.getTotalCalories());
+                                record.setTotalProtein(nutrition.getTotalProtein());
+                                record.setTotalCarbs(nutrition.getTotalCarbs());
+                                record.setTotalFat(nutrition.getTotalFat());
+                        }
+                } catch (Exception e) {
+                        // Ignore nutrition fetch errors to not block finalize day
+                        System.err.println("Could not collect nutrition data for finalize day: " + e.getMessage());
+                }
+
                 DailyRecord savedRecord = dailyRecordRepository.save(record);
 
                 // Reset all habits for this user for the next day
@@ -84,6 +98,10 @@ public class DailyRecordService {
                                 .date(doc.getDate())
                                 .journalText(doc.getJournalText())
                                 .completedHabitIds(doc.getCompletedHabitIds())
+                                .totalCalories(doc.getTotalCalories())
+                                .totalProtein(doc.getTotalProtein())
+                                .totalCarbs(doc.getTotalCarbs())
+                                .totalFat(doc.getTotalFat())
                                 .build();
         }
 }

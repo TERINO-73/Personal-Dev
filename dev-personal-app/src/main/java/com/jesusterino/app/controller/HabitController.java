@@ -31,6 +31,11 @@ public class HabitController {
         return ResponseEntity.ok(habitService.toggleHabit(id));
     }
 
+    @PatchMapping("/{id}/decrement")
+    public ResponseEntity<HabitDTO> decrementHabit(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(habitService.decrementHabit(id));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteHabit(@PathVariable("id") Long id) {
         habitService.deleteHabit(id);

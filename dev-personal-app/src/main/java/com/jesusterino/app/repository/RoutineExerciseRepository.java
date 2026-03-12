@@ -1,0 +1,13 @@
+package com.jesusterino.app.repository;
+
+import com.jesusterino.app.model.RoutineExercise;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface RoutineExerciseRepository extends JpaRepository<RoutineExercise, Long> {
+    List<RoutineExercise> findByRoutineIdOrderByOrderIndexAsc(Long routineId);
+    void deleteByRoutineId(Long routineId);
+}

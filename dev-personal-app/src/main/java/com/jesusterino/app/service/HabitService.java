@@ -68,6 +68,26 @@ public class HabitService {
     }
 
     @Transactional
+    public HabitDTO decrementHabit(Long habitId) {
+        Habit habit = habitRepository.findById(habitId)
+                .orElseThrow(() -> new RuntimeException("Hábito no encontrado"));
+
+        if ("daily".equals(habit.getType())) {
+            habit.setCompleted(false);
+        } else {
+            int currentCount = habit.getCurrentCount() != null ? habit.getCurrentCount() : 0;
+            if (currentCount > 0) {
+                habit.setCurrentCount(currentCount - 1);
+            }
+            if (habit.getTargetCount() != null && habit.getCurrentCount() < habit.getTargetCount()) {
+                habit.setCompleted(false);
+            }
+        }
+
+        return convertToDTO(habitRepository.save(habit));
+    }
+
+    @Transactional
     public void deleteHabit(Long habitId) {
         habitRepository.deleteById(habitId);
     }

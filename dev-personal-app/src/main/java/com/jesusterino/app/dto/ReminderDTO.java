@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public class ReminderDTO {
     private Long id;
     private String text;
+    private String description;
     private String color;
     @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime startTime;

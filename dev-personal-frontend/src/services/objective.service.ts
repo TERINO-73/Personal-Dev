@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api/objectives/';
+const API_URL = 'https://api.jesusterinodev.com/api/objectives/';
 
 export type SubtaskStatus = 'PENDING' | 'DOING' | 'DONE';
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api/habits/';
+const API_URL = 'https://api.jesusterinodev.com/api/habits/';
 
 export interface Habit {
   id: string;
@@ -26,6 +26,11 @@ const toggleHabit = async (id: string): Promise<Habit> => {
     return response.data;
 };
 
+const decrementHabit = async (id: string): Promise<Habit> => {
+    const response = await axios.patch(`${API_URL}${id}/decrement`, {}, { withCredentials: true });
+    return response.data;
+};
+
 const deleteHabit = async (id: string): Promise<void> => {
     await axios.delete(API_URL + id, { withCredentials: true });
 };
@@ -34,6 +39,7 @@ const HabitService = {
     getHabits,
     addHabit,
     toggleHabit,
+    decrementHabit,
     deleteHabit,
 };
 

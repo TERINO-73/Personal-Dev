@@ -34,4 +34,9 @@ public class DailyRecord {
     @Column(name = "habit_id")
     @Builder.Default
     private Set<Long> completedHabitIds = new HashSet<>();
+
+    private Double totalCalories;
+    private Double totalProtein;
+    private Double totalCarbs;
+    private Double totalFat;
 }

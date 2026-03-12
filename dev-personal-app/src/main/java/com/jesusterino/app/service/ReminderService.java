@@ -32,6 +32,7 @@ public class ReminderService {
 
         Reminder reminder = Reminder.builder()
                 .text(dto.getText())
+                .description(dto.getDescription())
                 .color(dto.getColor())
                 .startTime(dto.getStartTime())
                 .endTime(dto.getEndTime())
@@ -50,6 +51,7 @@ public class ReminderService {
         return ReminderDTO.builder()
                 .id(reminder.getId())
                 .text(reminder.getText())
+                .description(reminder.getDescription())
                 .color(reminder.getColor())
                 .startTime(reminder.getStartTime())
                 .endTime(reminder.getEndTime())

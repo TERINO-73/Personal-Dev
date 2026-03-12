@@ -18,4 +18,9 @@ public class DailyRecordDTO {
     private LocalDate date;
     private String journalText;
     private Set<Long> completedHabitIds;
+
+    private Double totalCalories;
+    private Double totalProtein;
+    private Double totalCarbs;
+    private Double totalFat;
 }

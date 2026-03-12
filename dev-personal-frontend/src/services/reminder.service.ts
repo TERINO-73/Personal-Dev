@@ -1,10 +1,11 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api/reminders/';
+const API_URL = 'https://api.jesusterinodev.com/api/reminders/';
 
 export interface Reminder {
   id: number;
   text: string;
+  description?: string;
   color: string;
   startTime: string; // ISO LocalDateTime
   endTime: string;   // ISO LocalDateTime

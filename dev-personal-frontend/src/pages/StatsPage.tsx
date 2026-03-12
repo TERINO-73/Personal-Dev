@@ -5,11 +5,14 @@ import DailyRecordService from '../services/dailyRecord.service';
 import type { DailyRecord } from '../services/dailyRecord.service';
 import HabitService from '../services/habit.service';
 import type { Habit } from '../services/habit.service';
+import GymStatsService from '../services/gymStats.service';
+import type { DailyWorkoutSnapshot } from '../services/gymStats.service';
 import '../styles/StatsPage.css';
 
 export default function StatsPage() {
     const [history, setHistory] = useState<DailyRecord[]>([]);
     const [allHabits, setAllHabits] = useState<Habit[]>([]);
+    const [gymStats, setGymStats] = useState<DailyWorkoutSnapshot[]>([]);
     const [loading, setLoading] = useState(true);
 
     const user = AuthService.getCurrentUser();
@@ -27,12 +30,21 @@ export default function StatsPage() {
         if (!user) return;
         try {
             setLoading(true);
-            const [records, habitsData] = await Promise.all([
+            const today = new Date();
+            const pastDate = new Date();
+            pastDate.setMonth(pastDate.getMonth() - 6); // Load last 6 months of gym stats
+            
+            const toStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+            const fromStr = `${pastDate.getFullYear()}-${String(pastDate.getMonth() + 1).padStart(2, '0')}-${String(pastDate.getDate()).padStart(2, '0')}`;
+
+            const [records, habitsData, gymData] = await Promise.all([
                 DailyRecordService.getHistory(user.username),
-                HabitService.getHabits(user.username)
+                HabitService.getHabits(user.username),
+                GymStatsService.getRangeSnapshots(fromStr, toStr).catch(() => []) // Optional fail gracefully
             ]);
             setHistory(records);
             setAllHabits(habitsData);
+            setGymStats(gymData || []);
         } catch (error) {
             console.error("Error loading stats data:", error);
         } finally {
@@ -90,6 +102,7 @@ export default function StatsPage() {
                         const completionRatio = dailyHabitsCount > 0
                             ? Math.round((completedIds.length / dailyHabitsCount) * 100)
                             : 0;
+                        const gymStatForDay = gymStats.find(s => s.date === record.date);
 
                         return (
                             <div key={record.id || index} className="timeline-item">
@@ -113,6 +126,29 @@ export default function StatsPage() {
                                         </div>
                                     )}
 
+                                    {record.totalCalories != null && (
+                                        <div className="nutrition-stats-card" style={{ marginTop: '1rem', padding: '1rem', background: 'rgba(255,255,255,0.05)', borderRadius: '8px' }}>
+                                            <h4 style={{ margin: '0 0 0.5rem 0', color: '#00c6ff' }}>Nutrición</h4>
+                                            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                                                <span>🔥 {Math.round(record.totalCalories)} kcal</span>
+                                                <span>🍗 {Math.round(record.totalProtein || 0)}g prot</span>
+                                                <span>🍞 {Math.round(record.totalCarbs || 0)}g carb</span>
+                                                <span>🥑 {Math.round(record.totalFat || 0)}g grasas</span>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {gymStatForDay && (
+                                        <div className="gym-stats-card" style={{ marginTop: '1rem', padding: '1rem', background: 'rgba(29, 209, 161, 0.1)', borderLeft: '4px solid #1dd1a1', borderRadius: '8px' }}>
+                                            <h4 style={{ margin: '0 0 0.5rem 0', color: '#1dd1a1' }}>Entrenamiento</h4>
+                                            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', fontSize: '0.9rem' }}>
+                                                <span>💪 {gymStatForDay.totalExercises} Ejercicios</span>
+                                                <span>🔁 {gymStatForDay.totalSets} Sets ({gymStatForDay.totalReps} Reps)</span>
+                                                <span>🏋️ {gymStatForDay.totalVolumeKg} Kg Movidos</span>
+                                            </div>
+                                        </div>
+                                    )}
+
                                     {record.journalText && (
                                         <div className="journal-entry">
                                             <h4>Diario/Nota</h4>
@@ -127,5 +163,4 @@ export default function StatsPage() {
             </main>
         </div>
     );
-
 }

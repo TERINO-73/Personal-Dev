@@ -69,6 +69,15 @@ export default function HabitPage() {
         }
     };
 
+    const decrementHabit = async (id: string) => {
+        try {
+            const updatedHabit = await HabitService.decrementHabit(id);
+            setHabits(habits.map(h => h.id === id ? updatedHabit : h));
+        } catch (error) {
+            console.error("Error decrementing habit:", error);
+        }
+    };
+
     const deleteHabit = async (id: string) => {
         try {
             await HabitService.deleteHabit(id);
@@ -138,7 +147,15 @@ export default function HabitPage() {
                                             className={`complete-btn ${habit.completed ? 'active' : ''}`}
                                             onClick={() => toggleComplete(habit.id)}
                                         >
-                                            {habit.completed ? '✓' : habit.type !== 'daily' ? '+' : ''}
+                                            {habit.completed ? '✓' : habit.type !== 'daily' ? '+' : '✓'}
+                                        </button>
+                                        <button
+                                            className="complete-btn"
+                                            onClick={() => decrementHabit(habit.id)}
+                                            disabled={habit.type === 'daily' ? !habit.completed : (habit.currentCount === 0)}
+                                            style={{ opacity: (habit.type === 'daily' ? !habit.completed : (habit.currentCount === 0)) ? 0.3 : 1, width: '30px', height: '30px', padding: 0, fontSize: '1.2rem' }}
+                                        >
+                                            -
                                         </button>
                                         <button
                                             className="delete-btn"

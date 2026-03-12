@@ -1,12 +1,16 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api/daily-records/';
+const API_URL = 'https://api.jesusterinodev.com/api/daily-records/';
 
 export interface DailyRecord {
     id?: number;
     date: string;
     journalText: string;
     completedHabitIds: number[];
+    totalCalories?: number;
+    totalProtein?: number;
+    totalCarbs?: number;
+    totalFat?: number;
 }
 
 const getTodayRecord = async (username: string): Promise<DailyRecord> => {
